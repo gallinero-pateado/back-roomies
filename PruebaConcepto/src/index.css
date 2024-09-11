@@ -1,0 +1,32 @@
+body{
+  margin: 0;
+  background: #daedf2;
+  font-family: system-ui;
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  
+}
+.tittle {
+  color: #0092BC;
+  text-align: center;
+}
+
+.tittle h1{
+  font-size: 50px;
+  margin-bottom: 0;
+}
+
+.tittle h2{
+  font-size: 35px;
+  opacity: .8;
+  margin-top: 0;
+}
+
+.App{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding:10vh;
+  border-radius: 10px;
+}
