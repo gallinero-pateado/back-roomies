@@ -4,7 +4,7 @@ import (
 	"backend/API/config"
 	"backend/API/database"
 	"backend/API/handlers"
-	"backend/API/models"
+	//"backend/API/models"
 	"fmt"
 	"log"
 
@@ -25,7 +25,7 @@ func main() {
 	fmt.Printf("db: %v\n", db)
 
 	//Migramos las tablas a la bd
-	db.AutoMigrate(&models.Usuario{}, &models.Usuario_Roomie{})
+	//db.AutoMigrate(&models.Usuario{}, &models.Usuario_Roomie{})
 
 	router := gin.Default()
 
