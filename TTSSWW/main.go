@@ -52,8 +52,10 @@ func main() {
 
 
 	//filtrado usuarios
-
+	r.GET("/filter_user", handlers.FilterUsers)
 	//r.GET("/users/filter", handlers.FiltrarUsuarios(db))//para filtrar usuarios no se como conectarlo bien a los datos que me pidieron.
+	
+	
 	//Indico el puerto
 	router.Run(":8080")
 
