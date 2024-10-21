@@ -2,7 +2,6 @@
 package handlers
 
 import (
-    "encoding/json"
     "net/http"
     "TTSSWW/API/models"
     "strings"
@@ -13,26 +12,30 @@ import (
 func FilterUsers(c *gin.Context) {
     // Ejemplo de usuarios
     users := []models.User{
-        {ID: 1, Name: "Alice", Email: "alice@example.com", Age: 30, Location: "New York", Interests: []string{"music", "sports"}, Preferences: map[string]string{"food": "vegan"}},
-        {ID: 2, Name: "Bob", Email: "bob@example.com", Age: 25, Location: "Los Angeles", Interests: []string{"movies", "sports"}, Preferences: map[string]string{"food": "vegetarian"}},
+        {ID: 1, Name: "Alice", Email: "alice@example.com", Age: 30, Comuna: "Comuna1", Carrera: "Ingeniería", Intereses: []string{"música", "deportes"}, Preferencias: map[string]string{"comida": "vegana"}},
+        {ID: 2, Name: "Bob", Email: "bob@example.com", Age: 25, Comuna: "Comuna2", Carrera: "Medicina", Intereses: []string{"películas", "deportes"}, Preferencias: map[string]string{"comida": "vegetariana"}},
         // Agrega más usuarios según sea necesario
     }
 
     // Obtener parámetros de filtrado de la solicitud
-    location := c.Query("location")
-    interests := c.QueryArray("interests")
-    preferences := c.Request.URL.Query()
+    comuna := c.Query("comuna")
+    carrera := c.Query("carrera")
+    intereses := c.QueryArray("intereses")
+    preferencias := c.Request.URL.Query()
 
     // Filtrar usuarios
     var filteredUsers []models.User
     for _, user := range users {
-        if location != "" && user.Location != location {
+        if comuna != "" && user.Comuna != comuna {
             continue
         }
-        if len(interests) > 0 && !containsAll(user.Interests, interests) {
+        if carrera != "" && user.Carrera != carrera {
             continue
         }
-        if !matchesPreferences(user.Preferences, preferences) {
+        if len(intereses) > 0 && !containsAll(user.Intereses, intereses) {
+            continue
+        }
+        if !matchesPreferences(user.Preferencias, preferencias) {
             continue
         }
         filteredUsers = append(filteredUsers, user)
@@ -42,9 +45,9 @@ func FilterUsers(c *gin.Context) {
     c.JSON(http.StatusOK, filteredUsers)
 }
 
-func containsAll(userInterests, filterInterests []string) bool {
-    for _, interest := range filterInterests {
-        if !contains(userInterests, interest) {
+func containsAll(userIntereses, filterIntereses []string) bool {
+    for _, interest := range filterIntereses {
+        if !contains(userIntereses, interest) {
             return false
         }
     }
@@ -60,12 +63,12 @@ func contains(slice []string, item string) bool {
     return false
 }
 
-func matchesPreferences(userPreferences map[string]string, filterPreferences map[string][]string) bool {
-    for key, values := range filterPreferences {
-        if key == "location" || key == "interests" {
+func matchesPreferences(userPreferencias map[string]string, filterPreferencias map[string][]string) bool {
+    for key, values := range filterPreferencias {
+        if key == "comuna" || key == "carrera" || key == "intereses" {
             continue
         }
-        if userValue, ok := userPreferences[key]; ok {
+        if userValue, ok := userPreferencias[key]; ok {
             if !contains(values, userValue) {
                 return false
             }
