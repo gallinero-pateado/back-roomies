@@ -49,6 +49,11 @@ func main() {
 	router.DELETE("/Usuario/:Id", handlers.DeleteUsuario(db))             //no funca si no se elimina la rommie antes
 	router.DELETE("/UsuarioRoomie/:Id", handlers.DeleteUsuarioRommie(db)) //funca
 	router.DELETE("/favorites/:Id", handlers.DeleteFavorito(db))
+
+
+	//filtrado usuarios
+
+	//r.GET("/users/filter", handlers.FiltrarUsuarios(db))//para filtrar usuarios no se como conectarlo bien a los datos que me pidieron.
 	//Indico el puerto
 	router.Run(":8080")
 
