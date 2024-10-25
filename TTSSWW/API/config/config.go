@@ -15,11 +15,11 @@ func DBURL() string {
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
-	DBHost := os.Getenv("DBHost")
-	DBUser := os.Getenv("DBUser")
-	DBPassword := os.Getenv("DBPassword")
-	DBPort := os.Getenv("DBPort")
-	DBName := os.Getenv("DBName")
+	DBHost := os.Getenv("SUPABASE_HOST")
+	DBUser := os.Getenv("SUPABASE_USER")
+	DBPassword := os.Getenv("SUPABASE_PASSWORD")
+	DBPort := os.Getenv("SUPABASE_PORT")
+	DBName := os.Getenv("SUPABASE_DB")
 
 	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", DBUser, DBPassword, DBHost, DBPort, DBName)
 }

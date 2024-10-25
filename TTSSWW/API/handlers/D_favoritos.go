@@ -11,7 +11,7 @@ import (
 func DeleteFavorito(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("Id")
-		if err := db.Delete(&models.Favorito{}, id).Error; err != nil {
+		if err := db.Delete(&models.Favorito_Roomie{}, id).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}

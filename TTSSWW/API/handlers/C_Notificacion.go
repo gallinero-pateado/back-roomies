@@ -8,20 +8,18 @@ import (
 	"gorm.io/gorm"
 )
 
-func CreateFavorito(db *gorm.DB) gin.HandlerFunc {
+func CreateNotificacion(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var favorito models.Favorito_Roomie
-		if err := c.ShouldBindJSON(&favorito); err != nil {
+		var notificacion models.Notificacion_Roomie
+		if err := c.ShouldBindJSON(&notificacion); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		// Crear el nuevo favorito en la base de datos
-		if err := db.Create(&favorito).Error; err != nil {
+		if err := db.Create(&notificacion).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-
-		c.JSON(http.StatusOK, favorito)
+		c.JSON(http.StatusOK, notificacion)
 	}
 }

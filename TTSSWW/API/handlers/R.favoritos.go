@@ -10,7 +10,7 @@ import (
 
 func GetFavoritos(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var favoritos []models.Favorito
+		var favoritos []models.Favorito_Roomie
 
 		// Obtener el usuario_id desde los parámetros de la URL
 		usuarioId := c.Param("Id")
