@@ -8,7 +8,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// DBURL genera la URL de conexión a la base de datos PostgreSQL
 func DBURL() string {
 	err := godotenv.Load(".env")
 
@@ -21,5 +20,5 @@ func DBURL() string {
 	DBPort := os.Getenv("SUPABASE_PORT")
 	DBName := os.Getenv("SUPABASE_DB")
 
-	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", DBUser, DBPassword, DBHost, DBPort, DBName)
+	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable&statement_cache_mode=describe", DBUser, DBPassword, DBHost, DBPort, DBName)
 }
