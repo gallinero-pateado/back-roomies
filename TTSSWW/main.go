@@ -5,9 +5,11 @@ import (
 	"backend/API/handlers"
 
 	//"backend/API/models"
+
 	"backend/API/config"
 	"fmt"
 	"log"
+
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -33,7 +35,7 @@ func main() {
 
 	// Configurar CORS
 	config := cors.Config{
-		AllowAllOrigins:  true,
+		AllowOrigins:     []string{"http://localhost:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
