@@ -11,7 +11,7 @@ import (
 func DeleteUsuarioRommie(db *gorm.DB) gin.HandlerFunc {
 	return func(informacion *gin.Context) {
 
-		id := informacion.Param("Id_Roomie")
+		id := informacion.Param("Id")
 		var usuario models.Usuario_Roomie
 
 		// Buscar el usuario por ID
