@@ -22,9 +22,9 @@ func OpenGormDB() (*gorm.DB, error) {
 	}
 
 	// Configurar el pool de conexiones
-	sqlDB.SetMaxOpenConns(25)                 // Número máximo de conexiones abiertas
-	sqlDB.SetMaxIdleConns(25)                 // Número máximo de conexiones inactivas
-	sqlDB.SetConnMaxLifetime(5 * time.Minute) // Tiempo máximo de vida de una conexión
+	sqlDB.SetMaxOpenConns(50)                  // Número máximo de conexiones abiertas
+	sqlDB.SetMaxIdleConns(50)                  // Número máximo de conexiones inactivas
+	sqlDB.SetConnMaxLifetime(10 * time.Minute) // Tiempo máximo de vida de una conexión
 
 	// Puedes agregar logs para verificar que se ha configurado correctamente
 	log.Println("Pool de conexiones configurado correctamente")

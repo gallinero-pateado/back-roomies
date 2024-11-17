@@ -35,7 +35,7 @@ func main() {
 
 	// Configurar CORS
 	config := cors.Config{
-		AllowAllOrigins:  true,
+		AllowOrigins:     []string{"http://localhost:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -59,7 +59,7 @@ func main() {
 	router.POST("/MensajesRoomie", handlers.CreateMensaje(db))
 
 	// Read
-	router.GET("/Usuario/:Id", handlers.GetUsuario(db))                                                    // Lectura de un usuario por ID
+	router.GET("/Usuario/:Firebase_usuario", handlers.GetUsuarioByFirebase(db))                            // Lectura de un usuario por ID
 	router.GET("/Usuarios", handlers.GetallUsuarios(db))                                                   // Lectura de todos los usuarios
 	router.GET("/UsuarioRoomie/:Id", handlers.GetUsuarioRoomie(db))                                        // Lectura de un roomie por ID
 	router.GET("/UsuarioRoomies", handlers.GetallUsuariosRoomie(db))                                       // Lectura de todos los roomies
