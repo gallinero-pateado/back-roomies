@@ -59,7 +59,8 @@ func main() {
 	router.POST("/MensajesRoomie", handlers.CreateMensaje(db))
 
 	// Read
-	router.GET("/Usuario/:Firebase_usuario", handlers.GetUsuarioByFirebase(db))                            // Lectura de un usuario por ID
+	router.GET("/Usuario/:Firebase_usuario", handlers.GetUsuarioByFirebase(db))
+	router.GET("/UsuarioId/:Id", handlers.GetUsuario(db))                                                  // Lectura de un usuario por ID
 	router.GET("/Usuarios", handlers.GetallUsuarios(db))                                                   // Lectura de todos los usuarios
 	router.GET("/UsuarioRoomie/:Id", handlers.GetUsuarioRoomie(db))                                        // Lectura de un roomie por ID
 	router.GET("/UsuarioRoomies", handlers.GetallUsuariosRoomie(db))                                       // Lectura de todos los roomies
