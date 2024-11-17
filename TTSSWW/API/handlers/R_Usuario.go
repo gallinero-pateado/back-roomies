@@ -22,6 +22,20 @@ func GetUsuarioByFirebase(db *gorm.DB) gin.HandlerFunc {
 	}
 }
 
+func GetUsuario(db *gorm.DB) gin.HandlerFunc {
+	return func(informacion *gin.Context) {
+		id := informacion.Param("Id")
+
+		var usuario models.Usuario
+
+		if err := db.Limit(1).First(&usuario, id).Error; err != nil {
+			informacion.JSON(http.StatusNotFound, gin.H{"error": "Usuario no encontrado"})
+			return
+		}
+		informacion.JSON(http.StatusOK, usuario)
+	}
+}
+
 func GetallUsuarios(db *gorm.DB) gin.HandlerFunc {
 	return func(informacion *gin.Context) {
 		var usuarios []models.Usuario
