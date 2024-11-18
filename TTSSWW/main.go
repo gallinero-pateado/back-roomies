@@ -69,7 +69,8 @@ func main() {
 	router.GET("/NotificacionesRoomie", handlers.GetAllNotificaciones(db))                                 // Lectura de todas las notificaciones
 	router.GET("/NotificacionesRoomie/UsuarioRoomie/:UsuarioId", handlers.GetNotificacionesPorUsuario(db)) // Lectura de todas las notificaciones de un usuario
 	router.GET("/MensajesRoomie/:Id", handlers.GetMensaje(db))                                             // Lectura de mensaje por el ID del mensaje
-	router.GET("/MensajesRoomie/UsuarioRoomie/:UsuarioId", handlers.GetMensajesPorUsuario(db))             // Lectura de todos los mensajes de un usuario
+	router.GET("/Mensajes/Recibidos/:UsuarioId", handlers.GetMensajesRecibidosPorUsuario(db))              // Lectura de todos los mensajes de un usuario
+	router.GET("/Mensajes/Enviados/:UsuarioId", handlers.GetMensajesEnviadosPorUsuario(db))
 	router.GET("/UsuariosconRoomie", handlers.GetUsuariosConRoomie(db))
 
 	//router.GET("/filtrar_usuario", handlers.FilterUsers(db))                     //para filtrar usuarios no se como conectarlo bien a los datos que me pidieron.

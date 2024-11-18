@@ -31,7 +31,7 @@ func GetMensaje(db *gorm.DB) gin.HandlerFunc {
 	}
 }
 
-func GetMensajesPorUsuario(db *gorm.DB) gin.HandlerFunc {
+func GetMensajesRecibidosPorUsuario(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		usuarioIdParam := c.Param("UsuarioId")
 		usuarioId, err := strconv.Atoi(usuarioIdParam)
@@ -42,7 +42,27 @@ func GetMensajesPorUsuario(db *gorm.DB) gin.HandlerFunc {
 		}
 
 		var mensajes []models.Mensaje_Roomie
-		if err := db.Where("receptor_id = ?", usuarioId).Find(&mensajes).Error; err != nil {
+		if err := db.Preload("Emisor").Preload("Receptor").Where("receptor_id = ?", usuarioId).Find(&mensajes).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, mensajes)
+	}
+}
+
+func GetMensajesEnviadosPorUsuario(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		usuarioIdParam := c.Param("UsuarioId")
+		usuarioId, err := strconv.Atoi(usuarioIdParam)
+
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "ID de usuario inválido"})
+			return
+		}
+
+		var mensajes []models.Mensaje_Roomie
+		if err := db.Preload("Emisor").Preload("Receptor").Where("emisor_id = ?", usuarioId).Find(&mensajes).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
