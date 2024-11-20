@@ -6,6 +6,7 @@ type Usuario_Roomie struct {
 	Biografia    string `json:"Biografia"`
 	Intereses    string `json:"Intereses"`
 	Preferencias string `json:"Preferencias"`
+	Ubicacion    string `json:"Ubicacion"`
 }
 
 func (Usuario_Roomie) TableName() string {
