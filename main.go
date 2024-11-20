@@ -46,7 +46,7 @@ func main() {
 	fmt.Printf("db: %v\n", db)
 
 	//Migramos las tablas a la bd
-	//db.AutoMigrate(&models.Usuario_Roomie{})
+	//db.AutoMigrate(&models.Reportes_Roomie{})
 
 	router := gin.Default()
 	router.Use(cors.New(config))
@@ -57,6 +57,7 @@ func main() {
 	router.POST("/FavoritosRoomie", handlers.CreateFavorito(db))
 	router.POST("/NotificacionesRoomie", handlers.CreateNotificacion(db))
 	router.POST("/MensajesRoomie", handlers.CreateMensaje(db))
+	router.POST("/Reportes", handlers.CrearReporte(db))
 
 	// Read
 	router.GET("/Usuario/:Firebase_usuario", handlers.GetUsuarioByFirebase(db))
@@ -70,8 +71,11 @@ func main() {
 	router.GET("/NotificacionesRoomie/UsuarioRoomie/:UsuarioId", handlers.GetNotificacionesPorUsuario(db)) // Lectura de todas las notificaciones de un usuario
 	router.GET("/MensajesRoomie/:Id", handlers.GetMensaje(db))                                             // Lectura de mensaje por el ID del mensaje
 	router.GET("/Mensajes/Recibidos/:UsuarioId", handlers.GetMensajesRecibidosPorUsuario(db))              // Lectura de todos los mensajes de un usuario
-	router.GET("/Mensajes/Enviados/:UsuarioId", handlers.GetMensajesEnviadosPorUsuario(db))
-	router.GET("/UsuariosconRoomie", handlers.GetUsuariosConRoomie(db))
+	router.GET("/Mensajes/Enviados/:UsuarioId", handlers.GetMensajesEnviadosPorUsuario(db))                // Lectura de todos los mensajes enviados por un usuario
+	router.GET("/UsuariosconRoomie", handlers.GetUsuariosConRoomie(db))                                    // Lectura de Los Usuarios en conjunto con sus datos roomies
+	router.GET("/Reportes", handlers.ObtenerReportes(db))                                                  // Lectura de todos los reportes
+	router.GET("/Reportes/:id", handlers.ObtenerReportePorID(db))                                          // Lectura de los reportes por el ID del reporte
+	router.GET("/Reportes/Enviados/:UsuarioId", handlers.ObtenerReportesEnviadosPorUsuario(db))            // Lectura de los reportes enviados por un usuario
 
 	//router.GET("/filtrar_usuario", handlers.FilterUsers(db))                     //para filtrar usuarios no se como conectarlo bien a los datos que me pidieron.
 
@@ -80,13 +84,15 @@ func main() {
 	router.PUT("/UsuarioRoomie/:Id", handlers.UpdateUsuarioRoomie(db))       // Actualización de un roomie por ID
 	router.PUT("/NotificacionesRoomie/:Id", handlers.UpdateNotificacion(db)) // Actualización de notificación por ID
 	router.PUT("/MensajesRoomie/:Id", handlers.UpdateMensaje(db))            // Actualización de mensaje por ID
+	router.PUT("/Reportes/:id", handlers.ActualizarReporte(db))              // Actualización del estado de un reporte a "Resuelto"
 
 	//Delete
-	router.DELETE("/Usuario/:Id", handlers.DeleteUsuario(db))             //no funca si no se elimina la rommie antes
-	router.DELETE("/UsuarioRoomie/:Id", handlers.DeleteUsuarioRommie(db)) //funca
+	router.DELETE("/Usuario/:Id", handlers.DeleteUsuario(db))
+	router.DELETE("/UsuarioRoomie/:Id", handlers.DeleteUsuarioRommie(db))
 	router.DELETE("/FavoritosRoomie/:Id", handlers.DeleteFavorito(db))
 	router.DELETE("/NotificacionesRoomie/:Id", handlers.DeleteNotificacion(db))
 	router.DELETE("/MensajesRoomie/:Id", handlers.DeleteMensaje(db))
+	router.DELETE("/Reportes/:id", handlers.EliminarReporte(db))
 
 	//Indico el puerto
 	router.Run(":8080")
