@@ -3,7 +3,7 @@
 2. Dichas credenciales deben estar en la carpeta raíz del proyecto.
 3. Ejecutar el comando "go run main.go"
 
-#NOTA SPRINT 5
+## NOTA SPRINT 5
 El cuerpo de petición para generar el reporte es:
 {
   "UsuarioReportadoID": 189,
