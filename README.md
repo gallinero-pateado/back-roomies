@@ -3,4 +3,15 @@
 2. Dichas credenciales deben estar en la carpeta raíz del proyecto.
 3. Ejecutar el comando "go run main.go"
 
+#NOTA SPRINT 5
+El cuerpo de petición para generar el reporte es:
+{
+  "UsuarioReportadoID": 189,
+  "UsuarioReportanteID": 200,
+  "Motivo": "El usuario publicó contenido inapropiado."
+}
 
+El cuerpo para actualizar el reporte es:
+{
+    "Estado": "Resuelto"
+}
