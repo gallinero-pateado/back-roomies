@@ -46,7 +46,7 @@ func main() {
 	fmt.Printf("db: %v\n", db)
 
 	//Migramos las tablas a la bd
-	//db.AutoMigrate(&models.Favorito_Roomie{})
+	//db.AutoMigrate(&models.Usuario_Roomie{})
 
 	router := gin.Default()
 	router.Use(cors.New(config))
