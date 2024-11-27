@@ -12,7 +12,6 @@ type Usuario struct {
 	Id_carrera        uint           `json:"Id_carrera"`
 	Id_estado_usuario bool           `json:"Id_Estado_Usuario"`
 	Foto_perfil       string         `json:"Foto_Perfil"`
-	Fecha_creacion    string         `json:"Fecha_Creacion"`
 	Rol               string         `json:"Rol"`
 }
 
