@@ -21,9 +21,9 @@ spec:
         - name: GIN_MODE
           value: "release"
         volumeMounts:
-        - name: app-env-volume
-          mountPath: /app/app.env
-          subPath: app.env
+        - name: punto-env-volume
+          mountPath: /app/.env
+          subPath: .env
           readOnly: true
         - name: config-json-volume
           mountPath: /app/serviceAccountKey.json
@@ -39,12 +39,12 @@ spec:
             memory: 128Mi
             cpu: 100m
       volumes:
-      - name: app-env-volume
+      - name: punto-env-volume
         secret:
-          secretName: app-env
+          secretName: punto-env
           items:
-          - key: app.env
-            path: app.env
+          - key: .env
+            path: .env
       - name: config-json-volume
         secret:
           secretName: firebase-sakey-json
