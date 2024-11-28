@@ -22,11 +22,11 @@ spec:
           value: "release"
         volumeMounts:
         - name: app-env-volume
-          mountPath: /app/config/app.env
+          mountPath: /app/app.env
           subPath: app.env
           readOnly: true
         - name: config-json-volume
-          mountPath: /app/config/serviceAccountKey.json
+          mountPath: /app/serviceAccountKey.json
           subPath: serviceAccountKey.json
           readOnly: true 
         ports:
