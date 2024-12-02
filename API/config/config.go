@@ -10,10 +10,10 @@ import (
 
 func DBURL() string {
 	err := godotenv.Load(".env")
-
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
+
 	DBHost := os.Getenv("SUPABASE_HOST")
 	DBUser := os.Getenv("SUPABASE_USER")
 	DBPassword := os.Getenv("SUPABASE_PASSWORD")
