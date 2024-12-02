@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"backend/API/models"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,29 +10,33 @@ import (
 )
 
 func DeleteUsuario(db *gorm.DB) gin.HandlerFunc {
-	return func(informacion *gin.Context) {
+	return func(c *gin.Context) {
 
-		id := informacion.Param("Id")
+		id := c.Param("Id")
 		var usuario models.Usuario
 
 		// Buscar el usuario por ID
 		if err := db.First(&usuario, id).Error; err != nil {
-			informacion.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return // Retorna el error si no encuentra el usuario
+			if err == gorm.ErrRecordNotFound {
+				c.JSON(http.StatusNotFound, gin.H{"error": "Usuario no encontrado"})
+			} else {
+				log.Printf("Error al buscar el usuario: %v", err)
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al buscar el usuario"})
+			}
+			return
 		}
+
 		// Eliminar el usuario
 		if err := db.Delete(&usuario).Error; err != nil {
-			informacion.JSON(http.StatusInternalServerError, gin.H{"error": "Error al eliminar el usuario"})
-			return // Retorna el error si la eliminación falla
+			log.Printf("Error al eliminar el usuario: %v", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al eliminar el usuario"})
+			return
 		}
 
-		informacion.JSON(http.StatusOK, usuario)
+		// Responder con un mensaje de éxito
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Usuario eliminado exitosamente",
+			"usuario": usuario,
+		})
 	}
 }
-
-/*
-
-
-
-
- */
