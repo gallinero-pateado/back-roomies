@@ -34,7 +34,7 @@ func main() {
 	fmt.Print(config.DBURL())
 
 	// Configurar CORS
-	config := cors.Config{
+	corsConfig := cors.Config{
 		AllowAllOrigins:  true,
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
@@ -49,7 +49,7 @@ func main() {
 	//db.AutoMigrate(&models.Reportes_Roomie{})
 
 	router := gin.Default()
-	router.Use(cors.New(config))
+	router.Use(cors.New(corsConfig))
 
 	// Create
 	router.POST("/Usuario", handlers.CreateUsuario(db))
